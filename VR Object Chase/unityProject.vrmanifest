@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.vrobjectchase.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Paul\\Projects\\VRObjectChase\\VR Object Chase\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "VR Object Chase [Testing]"
+        }
+      }
+    }
+  ]
+}
