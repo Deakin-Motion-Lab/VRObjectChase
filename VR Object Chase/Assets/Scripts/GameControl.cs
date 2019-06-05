@@ -28,18 +28,16 @@ public class GameControl : MonoBehaviour
     private int _Missed;
     private bool _GameOver;
 
-    //private SteamVR_ActionSet _SteamVRActionSet;
-    //private SteamVR_Action_Boolean _TouchPadAction;
+    private SteamVR_Action_Boolean _TouchPadAction;
 
     private void Awake()
     {
-        //_TouchPadAction = SteamVR_Actions.default_Teleport;
+        _TouchPadAction = SteamVR_Actions.default_Teleport;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //_SteamVRActionSet.Activate(SteamVR_Input_Sources.RightHand, 0, true);
         _ResetTime = gameTime;
         StartNewGame();
     }
@@ -56,11 +54,10 @@ public class GameControl : MonoBehaviour
         else
         {
             // Check if user has activated the 'Touch Pad' on the controller
-            //if (_TouchPadAction.GetStateDown(SteamVR_Input_Sources.RightHand))
-            //{
-            //    RestartGame();
-            //    // TO DO: Add more functionality to advise user of Restart option + fix restart bugs
-            //}
+            if (_TouchPadAction.GetStateDown(SteamVR_Input_Sources.RightHand))
+            {
+                RestartGame();
+            }
         }
     }
 
