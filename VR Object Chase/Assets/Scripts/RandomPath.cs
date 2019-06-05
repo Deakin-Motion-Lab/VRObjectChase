@@ -1,5 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*
+   This class selects a random path from the path array
+*/
+
 using UnityEngine;
 
 public class RandomPath : MonoBehaviour

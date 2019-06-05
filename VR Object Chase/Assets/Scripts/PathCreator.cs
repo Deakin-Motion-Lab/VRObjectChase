@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿/*
+   This class handles creation of waypoint paths for Chaser object to follow, from spawn to destruction
+*/
+
 using System.Collections.Generic;
 using UnityEngine;
 

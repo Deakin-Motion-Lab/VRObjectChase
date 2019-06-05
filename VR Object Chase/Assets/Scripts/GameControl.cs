@@ -1,4 +1,13 @@
-﻿using System.Collections;
+﻿/*
+   This class:
+   - controls the game;
+   - activates a game timer countdown;
+   - spawns 'Chaser' game objects at random intervals (until the game timer runs out)
+   - keeps score of all 'Chaser' objects caught / missed
+   - allows user to restart game (using 'TouchPad' on HTC Vive controller)
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,9 +36,9 @@ public class GameControl : MonoBehaviour
     private int _Total;
     private int _Missed;
     private bool _GameOver;
-
     private SteamVR_Action_Boolean _TouchPadAction;
 
+    // Initialise
     private void Awake()
     {
         _TouchPadAction = SteamVR_Actions.default_Teleport;
@@ -47,7 +56,6 @@ public class GameControl : MonoBehaviour
         if (!_GameOver)
         {
             UpdateTime();
-
             CheckPathComplete();
             CheckControllerInteraction();
         }
@@ -108,6 +116,9 @@ public class GameControl : MonoBehaviour
         timerText.text = string.Format("{0}:{1:00}", minutes, seconds);
     }
 
+    /// <summary>
+    /// Ends the game, updates UI to adivse 'Game Over' and removes all 'Chaser' objects from the scene.
+    /// </summary>
     private void EndGame()
     {
         _GameOver = true;
@@ -136,6 +147,10 @@ public class GameControl : MonoBehaviour
     /// </summary>
     private void CheckControllerInteraction()
     {
+        // TO DO: consider implementing a collider
+        // ISSUE: need to add a collider mesh to the steam vr controller (one is automatically included in SteamVR Player prefab, but not in
+        //        [CameraRig])
+
         float interactDistance = 0.3f;
 
         // Check if controller has interacted with one (or more) of the spawned objects
@@ -157,6 +172,7 @@ public class GameControl : MonoBehaviour
     /// </summary>
     private void DestroyAllSpawnedObjects()
     {
+        // Iterate through list and destroy each currently spawned 'Chaser' game object
         for (int i = 0; i < _ChaserObjs.Count; i++)
         {
             Destroy(_ChaserObjs[i]);
@@ -192,6 +208,7 @@ public class GameControl : MonoBehaviour
     private void UpdateTotal()
     {
         _Total++;
+        // Not currently displaying total on scoreboard
         //totalText.text = _Total.ToString();
     }
 
@@ -217,6 +234,8 @@ public class GameControl : MonoBehaviour
     /// <returns></returns>
     IEnumerator SpawnObject()
     {
+        // TO DO: Implement a 10? sec 'GET READY' time before starting game
+
         // Continue to randomly spawn objects until game is over
         while(!_GameOver)
         {

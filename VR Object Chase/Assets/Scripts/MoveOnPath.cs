@@ -1,7 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*
+   This class handles the 'Chaser' object's movement in the game:
+   - gets a new, randomly selected path to follow
+   - sets a random movement speed
+   - moves the object along the path until caught or complete
+   NOTE: reverse functionality is available (currently turned off)
+*/
+
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MoveOnPath : MonoBehaviour
 {
@@ -13,9 +18,9 @@ public class MoveOnPath : MonoBehaviour
     private PathCreator _PathToFollow;
     private int _CurrentWayPointID;         // Index for list
     private float _RandomSpeed;             // Random value selected within the minSpeed and maxSpeed range set by user
-    //public float rotationSpeed = 5.0f;
+    //public float rotationSpeed = 5.0f;    // TBC: is an object rotation required?
     private string _PathName;
-    private bool _GoForward;                // Used when 'reverse' path travel functionality is required
+    private bool _GoForward;                // Used if / when 'reverse' path travel functionality is required
     private bool _Stop;
     private bool _PathComplete;
 
@@ -89,15 +94,16 @@ public class MoveOnPath : MonoBehaviour
         // If reached end of path, signal complete
         if (_CurrentWayPointID >= _PathToFollow.pathObjects.Count)
         {
-            //float timer = Random.Range(1f, 4f);
             _Stop = true;
             _PathComplete = true;
-
-            //Invoke("StartNewPath", timer);
-            // Destroy object
         }
     }
 
+    /// <summary>
+    /// Returns current state of 'Chaser' object's movement:
+    /// [Travelling on path: false] / [Completed path: true]
+    /// </summary>
+    /// <returns></returns>
     public bool IsPathComplete()
     {
         return _PathComplete;
